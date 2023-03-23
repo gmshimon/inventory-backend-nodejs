@@ -31,3 +31,20 @@ module.exports.getBrand = async(req,res,next)=>{
         })
     }
 }
+
+module.exports.getBrandDetails = async(req,res,next)=>{
+    try {
+        const {id} = req.params
+        const result = await Brand.findById(id);
+        res.status(200).json({
+            status:"success",
+            message:"Data fetched successfully",
+            data:result
+        })
+    } catch (error) {
+        res.status(400).json({
+            status:"Fail",
+            error:"Can't fetch the brand by id"
+        })
+    }
+}
