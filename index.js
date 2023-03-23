@@ -12,6 +12,7 @@ app.use(cors());
 
 //routes
 const brandRouter = require('./routes/brand.route')
+const storeRouter = require('./routes/store.route')
 
 //database connection
 mongoose.connect(process.env.DATABASE_URL).then(()=>{
@@ -24,7 +25,7 @@ app.get('/',async(req,res,next)=>{
 
 
 app.use('/api/v1/brand',brandRouter)
-
+app.use('/api/v1/store',storeRouter)
 
 app.listen(port,()=>{
     console.log('Server running at ',port);
