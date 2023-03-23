@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const{ObjectId}  = mongoose.Schema.Types
-const {validator} = require('validator')
+const mongoose = require("mongoose");
+const validator = require("validator");
+const { ObjectId } = mongoose.Schema.Types;
 
 const brandSchema = mongoose.Schema({
     name:{
