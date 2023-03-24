@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const validator = require("validator");
-const ObjectId = require("validator");
+const { ObjectId } = mongoose.Schema.Types;
 
 const ProductSchema = mongoose.Schema({
     name:{
