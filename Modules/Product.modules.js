@@ -19,21 +19,6 @@ const ProductSchema = mongoose.Schema({
     imageURLs:[{
         type:String,
         required:true,
-        validate:{
-            validator:(value)=>{
-                if(!Array.isArray(value)){
-                    return false;
-                }
-                let isValid = true;
-                value.forEach(url=>{
-                    if(!validator.isURL(url)){
-                        isValid=false;
-                    }
-                })
-                return isValid;
-            },
-            message:"Please provide valid url"
-        }
     }],
     unit:{
         type:String,

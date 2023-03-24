@@ -1,12 +1,24 @@
 const Product = require('../Modules/Product.modules');
+const Brand = require('../Modules/Brand.modules');
 
 module.exports.postProduct = async(req,res,next)=>{
     try{
-        res.send("API hit successfully");
+        const products = await Product.create(req.body);
+        const {_id:productID,brand} = products;
+        const result = await Brand.updateOne(
+            {_id:brand.id},
+            {$push:{products:productID}}
+        )
+        console.log(products)
+        res.status(200).json({
+            status:"success",
+            message:"product inserted successfully",
+            data:product
+        })
     }catch(error){
         res.status(400).json({
             status:"Fail",
-            message:"Fail to insert Product"
+            message:error.message
         })
     }
 }
