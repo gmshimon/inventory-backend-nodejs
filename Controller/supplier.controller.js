@@ -1,7 +1,15 @@
+const Brand = require('../Modules/Brand.modules')
 const Supplier = require('../Modules/Supplier.modules')
 module.exports.postSupplier = async(req,res,next)=>{
     try {
-        const result = await Supplier.create(req.body)
+        const supplier = await Supplier.create(req.body)
+
+        const {_id:supplierID,name,brand} = supplier
+
+        const result = await Brand.updateOne({_id:brand.id},{
+            $push:{suppliers:{name:name,id:supplierID}}
+        })
+
         res.status(200).json({
             status:"Success",
             message:"data inserted successfully"

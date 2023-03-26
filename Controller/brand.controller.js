@@ -18,7 +18,7 @@ module.exports.postBrand = async(req,res,next)=>{
 
 module.exports.getBrand = async(req,res,next)=>{
     try {
-        const result = await Brand.find({}).populate('products')
+        const result = await Brand.find({}).populate('suppliers')
         res.status(200).json({
             status:"success",
             message:"Data fetched successfully",
