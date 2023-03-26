@@ -21,3 +21,20 @@ module.exports.postSupplier = async(req,res,next)=>{
         })
     }
 }
+
+module.exports.getSupplier = async(req,res,next)=>{
+    try {
+        const result = await Supplier.find({})
+
+        res.status(200).json({
+            status:"Success",
+            message:"Data fetched successfully",
+            data:result
+        })
+    } catch (error) {
+        res.status(400).json({
+            status:"Fail",
+            message:error.message
+        })
+    }
+}
