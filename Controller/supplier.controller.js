@@ -4,12 +4,13 @@ module.exports.postSupplier = async(req,res,next)=>{
     try {
         const supplier = await Supplier.create(req.body)
 
-        const {_id:supplierID,name,brand} = supplier
+        const {_id:supplierID,name,brand,contactNumber} = supplier
 
         const result = await Brand.updateOne({_id:brand.id},{
             $push:{suppliers:{name:name,id:supplierID}}
         })
 
+        console.log(supplierID,name)
         res.status(200).json({
             status:"Success",
             message:"data inserted successfully"
