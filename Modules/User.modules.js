@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
-const bcrypt = require("bcryptjs");
+const validator = require("validator");
+const bcrypt = require("bcrypt");
 
 const userSchema = mongoose.Schema({
     email:{
@@ -15,15 +15,16 @@ const userSchema = mongoose.Schema({
         type:String,
         required:[true,"Please provide password"],
         validate:{
-            validator:(value)=>
+            validator:(value)=>{
                 validator.isStrongPassword(value,{
                     minLength:6,
                     minLowercase:3,
                     minNumber:1,
                     nimUppercase:1,
                     minSymbol:1,
-                }),
-                message:"Password {VALUE} is not strong",
+                })
+            },
+            message:"Password {VALUE} is not strong",
         }
     },
     confirmPassword:{
@@ -55,7 +56,7 @@ const userSchema = mongoose.Schema({
     },
     contactNumber:{
         type:String,
-        validate:[validator.isMobileNumber, "Please provide a valid contact number"]
+        validate:[validator.isMobilePhone, "Please provide a valid contact number"]
     },
 
     shippingAddress:String,
