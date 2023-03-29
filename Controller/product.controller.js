@@ -13,7 +13,7 @@ module.exports.postProduct = async(req,res,next)=>{
         res.status(200).json({
             status:"success",
             message:"product inserted successfully",
-            data:product
+            data:products
         })
     }catch(error){
         res.status(400).json({
