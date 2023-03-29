@@ -42,7 +42,7 @@ const StockSchema = mongoose.Schema({
       type: String,
       required: true,
       enum: {
-        values: ["kg", "litre", "pcs", "bags"],
+        values: ["kg", "litre", "pcs", "bag"],
         message: "unit can't be {VALUE}, must be kg/litre/pcs/bag",
       },
     },
@@ -65,7 +65,7 @@ const StockSchema = mongoose.Schema({
         name: {
             type: String,
             required: [true, "Please provide a name for this product"],
-            unique: [true, "Please provide unique name"],
+            // unique: [true, "Please provide unique name"],
             trim: true,
             lowercase: true,
             enum:{
@@ -83,7 +83,7 @@ const StockSchema = mongoose.Schema({
         name: {
             type: String,
             required: [true, "Please provide a name for this product"],
-            unique: [true, "Please provide unique name"],
+            // unique: [true, "Please provide unique name"],
             trim: true,
             lowercase: true,
         },
