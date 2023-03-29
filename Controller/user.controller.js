@@ -12,7 +12,8 @@ module.exports.postUser = async(req,res,next)=>{
     } catch (error) {
         res.status(400).json({
             status:"Fail",
-            message:"Failed to insert User"
+            message:"Failed to insert User",
+            error:error.message
         })
     }
 }

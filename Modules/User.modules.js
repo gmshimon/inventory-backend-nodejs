@@ -30,12 +30,12 @@ const userSchema = mongoose.Schema({
     confirmPassword:{
         type:String,
         required:[true,"Please confirm your password"],
-        validate:{
-            validator:value=>{
-                return value===this.password;
+        validate: {
+            validator: function (value) {
+              return value === this.password;
             },
-            message:"Password doesn't match"
-        }
+            message: "Passwords don't match!",
+          }
     },
 
     role:{
@@ -81,14 +81,25 @@ const userSchema = mongoose.Schema({
     timestamps: true,
 })
 
-userSchema.pre("save",(next)=>{
-    const password = this.password;
-    const hashPassword = bcrypt.hashSync(password);
-
+userSchema.pre("save",function(next){
+    /*const password = this.password;
+     const hashPassword = bcrypt.hashSync(password);
+    console.log(hashPassword)
     this.password = hashPassword;
-    this.confirmPassword = null;
+    this.confirmPassword = undefined; */ 
 
-    next();
+   bcrypt.genSalt(10,(err,salt)=>{
+        bcrypt.hash(this.password,salt,(err,hash)=>{
+            if(!err){
+                this.password = hash;
+                this.confirmPassword = undefined
+                next();
+            }
+            if(err)this.password.message = err
+            
+        })
+    })
+
 })
 
 
