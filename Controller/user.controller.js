@@ -17,3 +17,20 @@ module.exports.postUser = async(req,res,next)=>{
         })
     }
 }
+
+module.exports.getAllUsers = async(req,res,next)=>{
+    try {
+         const result = await User.find({}).select('-password');
+        res.status(200).json({
+            status:"success",
+            message:"User fetched Successfully",
+            data:result
+        }) 
+    } catch (error) {
+        res.status(400).json({
+            status:"Fail",
+            message:"Failed to fetch User",
+            error:error.message
+        })
+    }
+}
