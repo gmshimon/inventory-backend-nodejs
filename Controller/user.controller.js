@@ -1,5 +1,6 @@
 const User = require('../Modules/User.modules');
 const bcrypt = require("bcrypt");
+const { generateToken } = require('../utilis/token');
 module.exports.postUser = async(req,res,next)=>{
     try {
         const result = await User.create(req.body);
@@ -80,11 +81,14 @@ module.exports.loginUser = async(req,res,next)=>{
             })
         }
 
+        const token = generateToken(user);
+
        const {password,...others} = user.toObject()
         res.status(200).json({
             status:"Success",
             message:"Login successful",
-            data:others
+            data:others,
+            token:token
         })
     } catch (error) {
         res.status(400).json({
