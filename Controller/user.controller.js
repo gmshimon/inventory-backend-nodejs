@@ -1,6 +1,7 @@
 const User = require('../Modules/User.modules');
 const bcrypt = require("bcrypt");
 const { generateToken } = require('../utilis/token');
+const e = require('express');
 module.exports.postUser = async(req,res,next)=>{
     try {
         const result = await User.create(req.body);
@@ -89,6 +90,26 @@ module.exports.loginUser = async(req,res,next)=>{
             message:"Login successful",
             data:others,
             token:token
+        })
+    } catch (error) {
+        res.status(400).json({
+            status:"Fail",
+            message:"Failed to login",
+            error:error.message
+        })
+    }
+}
+
+module.exports.getMe = async(req,res,next)=>{
+    try {
+        console.log(req.user);
+        const email = req.user?.email;
+
+        const user = await User.findOne({email:email}).select('-password');
+        res.status(200).json({
+            status:"success",
+            message:"Verified",
+            data:user
         })
     } catch (error) {
         res.status(400).json({
